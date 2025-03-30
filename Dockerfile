@@ -32,10 +32,9 @@ RUN apk update && apk add --no-cache \
     bird \
     keepalived \
     mtr \
-    tcptraceroute \
-    tini
+    tcptraceroute
 
 RUN apk add --no-cache -X https://dl-cdn.alpinelinux.org/alpine/edge/testing bgpq4
 ENV NODE_ENV="production"
 
-CMD ["/sbin/tini", "--", "bird -c /etc/bird/bird.conf && node build/index.js"]
+CMD ["bird -c /etc/bird/bird.conf && node build/index.js"]
