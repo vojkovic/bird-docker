@@ -23,7 +23,6 @@ WORKDIR /usr/app
 
 COPY --from=builder /app/build ./build
 COPY ./confetti/package.json .
-COPY ./run.sh .
 
 RUN yarn
 
@@ -39,4 +38,4 @@ RUN apk update && apk add --no-cache \
 RUN apk add --no-cache -X https://dl-cdn.alpinelinux.org/alpine/edge/testing bgpq4
 ENV NODE_ENV="production"
 
-CMD ["/sbin/tini","--","run.sh"]
+CMD ["/sbin/tini", "--", "bird -c /etc/bird/bird.conf && node build/index.js"]
